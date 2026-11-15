@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1260" viewBox="0 0 1800 1260" role="img" aria-labelledby="title desc">
+  <title id="title">ShopLedger application architecture</title>
+  <desc id="desc">Architecture diagram showing the public UI, Express server routes, lib modules, config.js, data/db.json, and the order placement flow.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b1220"/><stop offset="1" stop-color="#111c33"/></linearGradient>
+    <linearGradient id="ui" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#1d4ed8"/><stop offset="1" stop-color="#2563eb"/></linearGradient>
+    <linearGradient id="route" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0f766e"/><stop offset="1" stop-color="#0d9488"/></linearGradient>
+    <linearGradient id="lib" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#6d28d9"/><stop offset="1" stop-color="#7c3aed"/></linearGradient>
+    <linearGradient id="data" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b45309"/><stop offset="1" stop-color="#d97706"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000" flood-opacity=".25"/></filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8"/></marker>
+    <marker id="flowArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#fbbf24"/></marker>
+    <style>
+      .title{font:700 34px Arial,sans-serif;fill:#f8fafc}.subtitle{font:400 16px Arial,sans-serif;fill:#94a3b8}
+      .section{font:700 18px Arial,sans-serif;fill:#cbd5e1;letter-spacing:1px}.label{font:700 17px Arial,sans-serif;fill:#fff}.small{font:400 13px Arial,sans-serif;fill:#dbeafe}.tiny{font:400 12px Arial,sans-serif;fill:#cbd5e1}
+      .box{stroke:#64748b;stroke-width:1.5;filter:url(#shadow)}.arrow{fill:none;stroke:#94a3b8;stroke-width:2;marker-end:url(#arrow)}.flow{fill:none;stroke:#fbbf24;stroke-width:3;marker-end:url(#flowArrow)}.dash{stroke-dasharray:7 7}
+      .num{font:700 14px Arial,sans-serif;fill:#111827}.numCircle{fill:#fbbf24;stroke:#fde68a;stroke-width:2}
+    </style>
+  </defs>
+
+  <rect width="1800" height="1260" fill="url(#bg)"/>
+  <text x="70" y="66" class="title">ShopLedger architecture</text>
+  <text x="70" y="96" class="subtitle">Single Express application · browser UI · JSON file persistence · order placement highlighted in yellow</text>
+
+  <text x="70" y="150" class="section">UI</text>
+  <rect x="70" y="175" width="330" height="165" rx="14" fill="url(#ui)" class="box"/>
+  <text x="95" y="212" class="label">public/</text>
+  <text x="95" y="242" class="small">index.html</text>
+  <text x="95" y="266" class="small">js/app.js</text>
+  <text x="95" y="290" class="small">css/style.css</text>
+  <text x="95" y="321" class="tiny">POS · orders · Khata · audit</text>
+
+  <text x="480" y="150" class="section">SERVER</text>
+  <rect x="480" y="175" width="310" height="165" rx="14" fill="#334155" class="box"/>
+  <text x="505" y="218" class="label">server.js</text>
+  <text x="505" y="248" class="small">Express application</text>
+  <text x="505" y="278" class="small">static files + JSON API</text>
+  <text x="505" y="308" class="tiny">body-parser · express</text>
+
+  <path d="M400 258 H480" class="arrow"/>
+
+  <text x="850" y="150" class="section">routes/</text>
+  <rect x="850" y="175" width="370" height="290" rx="14" fill="#0f766e" class="box"/>
+  <text x="875" y="210" class="label">products.js</text><text x="875" y="234" class="small">/api/products · /api/coupons</text>
+  <text x="875" y="270" class="label">orders.js</text><text x="875" y="294" class="small">/api/orders · cancel</text>
+  <text x="875" y="330" class="label">customers.js</text><text x="875" y="354" class="small">/api/customers · settle</text>
+  <text x="875" y="390" class="label">reports.js</text><text x="875" y="414" class="small">dashboard · pricing preview · export</text>
+  <path d="M790 258 H850" class="arrow"/>
+
+  <text x="1280" y="150" class="section">lib/</text>
+  <rect x="1280" y="175" width="450" height="650" rx="14" fill="#4c1d95" class="box"/>
+  <g transform="translate(1310 210)">
+    <text y="0" class="label">orders.js</text><text x="215" y="0" class="label">inventory.js</text>
+    <text y="42" class="label">pricing.js</text><text x="215" y="42" class="label">tax.js</text>
+    <text y="84" class="label">coupons.js</text><text x="215" y="84" class="label">ledger.js</text>
+    <text y="126" class="label">invoice.js</text><text x="215" y="126" class="label">reports.js</text>
+    <text y="168" class="label">store.js</text><text x="215" y="168" class="label">dates.js</text>
+    <path d="M0 205 H390" stroke="#a78bfa"/>
+    <text y="244" class="small">business logic</text>
+    <text y="272" class="small">pricing · stock · Khata · invoices</text>
+    <text y="300" class="small">reports · persistence · dates</text>
+  </g>
+  <path d="M1220 320 H1280" class="arrow"/>
+
+  <text x="70" y="430" class="section">CONFIGURATION</text>
+  <rect x="70" y="455" width="330" height="150" rx="14" fill="#475569" class="box"/>
+  <text x="95" y="500" class="label">config.js</text>
+  <text x="95" y="531" class="small">port · shop · tax</text>
+  <text x="95" y="555" class="small">inventory · coupons · adminKey</text>
+  <path d="M400 530 H1280" class="arrow dash"/>
+
+  <text x="850" y="520" class="section">PERSISTENCE</text>
+  <rect x="850" y="545" width="370" height="150" rx="14" fill="url(#data)" class="box"/>
+  <text x="875" y="590" class="label">data/db.json</text>
+  <text x="875" y="622" class="small">products · customers</text>
+  <text x="875" y="646" class="small">orders · settlements · auditLog</text>
+  <path d="M1280 610 H1220" class="arrow"/>
+
+  <rect x="70" y="665" width="1150" height="520" rx="18" fill="#111827" stroke="#fbbf24" stroke-width="2"/>
+  <text x="100" y="710" class="section" fill="#fbbf24">ORDER PLACEMENT FLOW</text>
+  <text x="100" y="737" class="tiny">POST /api/orders</text>
+
+  <g transform="translate(100 780)">
+    <circle cx="18" cy="17" r="17" class="numCircle"/><text x="13" y="22" class="num">1</text>
+    <rect x="48" y="0" width="250" height="62" rx="10" fill="#1d4ed8" class="box"/><text x="68" y="27" class="label">public/js/app.js</text><text x="68" y="48" class="tiny">collect cart + customer</text>
+    <path d="M298 31 H340" class="flow"/>
+    <circle cx="358" cy="31" r="17" class="numCircle"/><text x="353" y="36" class="num">2</text>
+    <rect x="388" y="0" width="250" height="62" rx="10" fill="#0f766e" class="box"/><text x="408" y="27" class="label">routes/orders.js</text><text x="408" y="48" class="tiny">resolve + validate request</text>
+    <path d="M638 31 H680" class="flow"/>
+    <circle cx="698" cy="31" r="17" class="numCircle"/><text x="693" y="36" class="num">3</text>
+    <rect x="728" y="0" width="250" height="62" rx="10" fill="#7c3aed" class="box"/><text x="748" y="27" class="label">pricing.js + tax.js</text><text x="748" y="48" class="tiny">subtotal + coupon + GST</text>
+  </g>
+  <g transform="translate(100 890)">
+    <circle cx="18" cy="17" r="17" class="numCircle"/><text x="13" y="22" class="num">4</text>
+    <rect x="48" y="0" width="250" height="62" rx="10" fill="#7c3aed" class="box"/><text x="68" y="27" class="label">ledger.js</text><text x="68" y="48" class="tiny">Khata credit check</text>
+    <path d="M298 31 H340" class="flow"/>
+    <circle cx="358" cy="31" r="17" class="numCircle"/><text x="353" y="36" class="num">5</text>
+    <rect x="388" y="0" width="250" height="62" rx="10" fill="#7c3aed" class="box"/><text x="408" y="27" class="label">inventory.js</text><text x="408" y="48" class="tiny">check + deduct stock</text>
+    <path d="M638 31 H680" class="flow"/>
+    <circle cx="698" cy="31" r="17" class="numCircle"/><text x="693" y="36" class="num">6</text>
+    <rect x="728" y="0" width="250" height="62" rx="10" fill="#7c3aed" class="box"/><text x="748" y="27" class="label">orders.js</text><text x="748" y="48" class="tiny">create order record</text>
+  </g>
+  <g transform="translate(100 1000)">
+    <circle cx="18" cy="17" r="17" class="numCircle"/><text x="13" y="22" class="num">7</text>
+    <rect x="48" y="0" width="250" height="62" rx="10" fill="#7c3aed" class="box"/><text x="68" y="27" class="label">store.js</text><text x="68" y="48" class="tiny">append audit + write</text>
+    <path d="M298 31 H340" class="flow"/>
+    <circle cx="358" cy="31" r="17" class="numCircle"/><text x="353" y="36" class="num">8</text>
+    <rect x="388" y="0" width="250" height="62" rx="10" fill="#d97706" class="box"/><text x="408" y="27" class="label">data/db.json</text><text x="408" y="48" class="tiny">persist updated state</text>
+    <path d="M638 31 H680" class="flow"/>
+    <circle cx="698" cy="31" r="17" class="numCircle"/><text x="693" y="36" class="num">9</text>
+    <rect x="728" y="0" width="250" height="62" rx="10" fill="#1d4ed8" class="box"/><text x="748" y="27" class="label">public/js/app.js</text><text x="748" y="48" class="tiny">refresh UI + invoice link</text>
+  </g>
+
+  <text x="1280" y="895" class="section">INVOICE VIEW</text>
+  <rect x="1280" y="925" width="450" height="130" rx="14" fill="#334155" class="box"/>
+  <text x="1310" y="965" class="label">server.js</text>
+  <text x="1310" y="993" class="small">/orders/:id/invoice</text>
+  <text x="1310" y="1021" class="small">lib/invoice.js → HTML invoice</text>
+  <path d="M1730 990 H1780 V320 H1220" class="arrow dash"/>
+
+  <text x="1280" y="1105" class="section">READ PATH</text>
+  <text x="1280" y="1135" class="small">routes/ → lib/ → store.js → data/db.json</text>
+  <text x="1280" y="1162" class="section">WRITE PATH</text>
+  <text x="1280" y="1192" class="small">orders / inventory / ledger → store.js → data/db.json</text>
+</svg>
